@@ -6,6 +6,7 @@ prep_stage=(
     wl-clipboard 
     python-requests 
     pacman-contrib
+    zsh
 )
 
 #software for nvidia GPU only
