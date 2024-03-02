@@ -1,12 +1,19 @@
 #!/bin/bash
 
 prep_stage=(
+    qt5-wayland 
+    qt5ct
+    qt6-wayland 
+    qt6ct
+    qt5-svg
+    qt5-quickcontrols2
+    qt5-graphicaleffects
     qt6-wayland
     jq 
     wl-clipboard 
     python-requests 
     pacman-contrib
-    zsh
+
 )
 
 #software for nvidia GPU only
@@ -34,6 +41,9 @@ install_stage=(
     thunar 
     btop
     firefox
+    nm-connection-editor
+    network-manager-applet
+    networkmanager-openvpn
     pavucontrol 
     bluez 
     bluez-utils 
@@ -43,11 +53,13 @@ install_stage=(
     file-roller
     papirus-icon-theme 
     ttf-jetbrains-mono-nerd 
+    ttf-fira-code
     noto-fonts-emoji 
     lxappearance 
     xfce4-settings
     nwg-look-bin
     sddm
+    zsh
 )
 
 for str in ${myArray[@]}; do
@@ -193,29 +205,28 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
     sleep 2
 fi
 
-    # add the Nvidia env file to the config (if needed)
-    if [[ "$ISNVIDIA" == true ]]; then
-        echo -e "\nsource = ~/.config/hypr/env_var_nvidia.conf" >> ~/.config/hypr/hyprland.conf
-    fi
-
-    # Copy the SDDM theme
-    echo -e "$CNT - Setting up the login screen."
-    sudo cp -R Extras/sdt /usr/share/sddm/themes/
-    sudo chown -R $USER:$USER /usr/share/sddm/themes/sdt
-    sudo mkdir /etc/sddm.conf.d
-    echo -e "[Theme]\nCurrent=sdt" | sudo tee -a /etc/sddm.conf.d/10-theme.conf &>> $INSTLOG
-    WLDIR=/usr/share/wayland-sessions
-    if [ -d "$WLDIR" ]; then
-        echo -e "$COK - $WLDIR found"
-    else
-        echo -e "$CWR - $WLDIR NOT found, creating..."
-        sudo mkdir $WLDIR
-    fi 
-    
-    # stage the .desktop file
-    sudo cp Extras/hyprland.desktop /usr/share/wayland-sessions/
-
+# add the Nvidia env file to the config (if needed)
+if [[ "$ISNVIDIA" == true ]]; then
+echo -e "\nsource = ~/.config/hypr/env_var_nvidia.conf" >> ~/.config/hypr/hyprland.conf
 fi
+
+# Copy the SDDM theme
+echo -e "$CNT - Setting up the login screen."
+sudo cp -R Extras/sdt /usr/share/sddm/themes/
+sudo chown -R $USER:$USER /usr/share/sddm/themes/sdt
+sudo mkdir /etc/sddm.conf.d
+echo -e "[Theme]\nCurrent=sdt" | sudo tee -a /etc/sddm.conf.d/10-theme.conf &>> $INSTLOG
+WLDIR=/usr/share/wayland-sessions
+if [ -d "$WLDIR" ]; then
+echo -e "$COK - $WLDIR found"
+else
+echo -e "$CWR - $WLDIR NOT found, creating..."
+sudo mkdir $WLDIR
+fi 
+
+# stage the .desktop file
+sudo cp Extras/hyprland.desktop /usr/share/wayland-sessions/
+
 
 ### Script is done ###
 echo -e "$CNT - Script had completed!"
