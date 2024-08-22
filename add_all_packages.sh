@@ -13,7 +13,6 @@ prep_stage=(
     wl-clipboard 
     python-requests 
     pacman-contrib
-
 )
 
 #software for nvidia GPU only
@@ -28,7 +27,7 @@ nvidia_stage=(
 #the main packages
 install_stage=(
     kitty 
-    mako 
+    swaync
     waybar
     swww 
     swaylock-effects 
@@ -57,9 +56,15 @@ install_stage=(
     noto-fonts-emoji 
     lxappearance 
     xfce4-settings
-    nwg-look-bin
+    nwg-look
     sddm
     zsh
+    vim
+    nvim
+    docker
+    pyenv
+    python-poetry
+    nvm
 )
 
 for str in ${myArray[@]}; do
@@ -227,6 +232,9 @@ fi
 # stage the .desktop file
 sudo cp Extras/hyprland.desktop /usr/share/wayland-sessions/
 
+# stage createing and enabling daemons
+sudo systemctl enable docker
+sudo systemctl start docker
 
 ### Script is done ###
 echo -e "$CNT - Script had completed!"
