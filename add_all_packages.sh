@@ -60,11 +60,13 @@ install_stage=(
     sddm
     zsh
     vim
-    nvim
+    neovim
     docker
+    docker-compose
     pyenv
     python-poetry
     nvm
+    lazygit
 )
 
 for str in ${myArray[@]}; do
