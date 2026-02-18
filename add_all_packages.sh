@@ -53,7 +53,14 @@ install_stage=(
     papirus-icon-theme 
     ttf-jetbrains-mono-nerd 
     ttf-fira-code
-    noto-fonts-emoji 
+    ttf-nunito
+    ttf-opensans
+    ttf-sourcecodepro-nerd
+    ttf-terminus-nerd
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    otf-font-awesome
     lxappearance 
     xfce4-settings
     nwg-look
